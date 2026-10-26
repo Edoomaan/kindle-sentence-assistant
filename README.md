@@ -2,6 +2,14 @@
 
 Explain selected text inside Kindle's stock reader. The offline setup form starts with an editable instruction for simple English explanations, idioms and missing context. Change it to request another language, translation or a different style.
 
+[Download the experimental release](https://github.com/Edoomaan/kindle-sentence-assistant/releases/tag/v0.1.0) — choose `sentence-assistant-kual-usb-setup.zip` under Assets, not the automatically generated source-code archives.
+
+## Screenshots
+
+| Explain in the selection menu | Explanation inside the reader |
+| --- | --- |
+| <img src="docs/images/explain-menu.png" alt="Explain option in the Kindle selection menu" width="320"> | <img src="docs/images/explanation-card.png" alt="AI explanation displayed over the selected passage" width="320"> |
+
 ## Tested setup
 
 | Component | Tested version |
@@ -46,23 +54,25 @@ The directory is mode `700`; files are mode `600`, owned by `framework`. Keys ar
 
 Normal installation and configuration use USB file transfer and KUAL. **USBNetLite and SSH are not required for this workflow.** A verified computer backup is optional but recommended; SSH remains an optional developer/recovery tool if KUAL cannot open.
 
-1. Extract `sentence-assistant-kual-usb-setup.zip` and copy `extensions/sentence-assistant-installer` into the Kindle's `extensions` folder.
-2. **Optional, recommended:** safely eject USB file transfer and select **Export backup (optional, recommended)** in KUAL. When status says **Backup exported**, reconnect and copy `extensions/sentence-assistant/install-state/recovery-export` to a private folder on your computer. Run `sha256sum -c SHA256SUMS` inside that copied folder to verify it. Do not put backups in Kindle's `documents` folder or publish them.
-3. Safely eject USB file transfer, then select **Install / Update** once. Installation starts immediately after automatic checks and an internal transaction backup. Wait for Library to return. No second press or computer-backup confirmation is required.
-4. On your computer, open the extracted `setup.html` next to `setup.js`. Choose the provider, enter its model ID and API key, and adjust explanation preferences. This page works offline and has no external scripts or network requests.
-5. Click **Create setup.properties**. Copy that file into Kindle's `extensions/sentence-assistant-installer` folder, safely eject, then choose **Import settings from USB** in KUAL.
-6. Import removes the Kindle transfer file and saves settings privately. Delete the downloaded computer copy as well: it contains the key in plain text.
+1. On your computer, extract `sentence-assistant-kual-usb-setup.zip`. Open `extensions/sentence-assistant-installer/setup.html` with its adjacent `setup.js`. The form works offline.
+2. Choose your provider, model ID and API key, then review the explanation instruction. Click **Create setup.properties** and place the downloaded file inside the extracted `sentence-assistant-installer` folder, next to `setup.html`.
+3. Connect the Kindle and copy that entire `sentence-assistant-installer` folder into its `extensions` folder. The installer and settings file are transferred together. Safely eject USB file transfer and disconnect the cable.
+4. **Optional, recommended:** before installing, use **Export backup (optional, recommended)** and save its export on your computer as described below. This optional step requires reconnecting USB; normal setup does not.
+5. In KUAL, select **Install / Update** once. Wait up to two minutes for Library to return, then reopen KUAL and select **Import settings from USB**. Wait for **Settings imported** in **Show installer status** before continuing. The settings file is already on the Kindle; no second transfer is needed.
+6. Import removes the Kindle transfer file and saves settings privately. Delete all computer copies of `setup.properties`, including the download and the copy placed in the extracted installer folder: they contain the key in plain text.
 7. Enable Kindle Wi-Fi and choose **Test API (uses provider quota)**. After success, open a book and use Explain. Setup is complete; do not press **Install / Update** again.
 
 **Install / Update installs the plugin; Import settings from USB only saves API settings.** Import does not add the Explain menu. If you imported settings before installing, run Install / Update once; you do not need to import again. Changing API settings after installation requires no reinstall.
 
-**Upgrading from earlier versions:** install the new plugin, then open the new setup form and import your complete instruction. An old instruction such as “Use at most three short sentences” now stands alone; no hidden explanation rules are appended. Missing instructions require re-import. Leave the API key blank to reuse its saved value.
+**Upgrading from earlier versions:** prepare your complete instruction in the new setup form, transfer it with the installer, install the new plugin and then import settings. An old instruction such as “Use at most three short sentences” now stands alone; no hidden explanation rules are appended. Missing instructions require re-import. Leave the API key blank to reuse its saved value.
+
+To save the optional export, wait for **Backup exported**, reconnect USB and copy `extensions/sentence-assistant/install-state/recovery-export` to a private computer folder. Run `sha256sum -c SHA256SUMS` inside that copied folder and check that all results say `OK`. Safely eject before continuing installation. Do not put backups in Kindle’s `documents` folder or publish them.
 
 The optional export is a snapshot of the current system JAR and existing plugin, not a log archive or a full-device backup. Copy it to the computer before installation if you want an independent recovery copy. Installation always retains its own on-device transaction backup for **Restore previous version**, even if you skip export. A computer copy is restored manually through a working recovery interface; it is not restored automatically.
 
 **Observed on the tested Kindle:** the user reported three “Application failed” messages after starting installation, followed by a working Explain menu. The cause of these messages has not been verified. Allow up to two minutes for Library to return, then check **Show installer status** and test Explain in a book. The messages alone do not establish success or failure. If Library does not return or Explain does not work, keep `extensions/sentence-assistant/install-state/installer.log` for diagnosis rather than repeatedly pressing Install / Update.
 
-Leave the key blank to keep an existing key for the selected provider. Repeat steps 4–7 to change providers, models or explanation preferences; no restart is needed for subsequent requests. Preferences are the complete system instruction: choose the language, style and detail. The plugin adds no hidden English-only or no-translation rules. Blank instructions are rejected.
+Leave the key blank to keep an existing key for the selected provider. To change providers, models or explanation preferences later, create a new `setup.properties`, copy only that file to the Kindle installer folder, safely eject and run **Import settings from USB**, then **Test API**. No reinstall or restart is needed. Delete the computer transfer file afterward. Preferences are the complete system instruction: choose the language, style and detail. The plugin adds no hidden English-only or no-translation rules. Blank instructions are rejected.
 
 USB import succeeded on the device after the staging-ownership fix; a separate on-device API-test confirmation remains pending. The installer and earlier Explain version were tested on the target device. Direct OpenAI/DeepSeek service access remains untested. API tests may incur charges; no free tier is assumed. See [API configuration](docs/api-integration.md) and [installation/recovery](docs/installation.md) for details.
 
@@ -108,3 +118,7 @@ See [installation and recovery](docs/installation.md) for backups, package build
 ## Research
 
 - [Technical findings, sources and validation limits](docs/feasibility.md)
+
+## License
+
+Project code is available under the [MIT License](LICENSE). Amazon software, Kindle interface elements and book excerpts visible in the screenshots are not covered by this license; their rights remain with their respective owners.
