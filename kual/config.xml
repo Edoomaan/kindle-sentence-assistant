@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+  <information>
+    <name>Sentence Assistant Installer</name>
+    <version>0.1-test</version>
+    <author>Kindle Sentence Assistant contributors</author>
+    <id>sentence-assistant-installer</id>
+  </information>
+  <menus><menu type="json" dynamic="true">menu.json</menu></menus>
+</extension>

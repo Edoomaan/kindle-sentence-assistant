@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "name": "Sentence Assistant",
+      "items": [
+        {
+          "name": "Install / Update",
+          "action": "./launch.sh",
+          "params": "install",
+          "exitmenu": true
+        },
+        {
+          "name": "Export backup (optional, recommended)",
+          "action": "./launch.sh",
+          "params": "backup",
+          "exitmenu": true
+        },
+        {
+          "name": "Import settings from USB",
+          "action": "./launch.sh",
+          "params": "import",
+          "exitmenu": true
+        },
+        {
+          "name": "Test API (uses provider quota)",
+          "action": "./launch.sh",
+          "params": "test",
+          "exitmenu": true
+        },
+        {
+          "name": "Restore previous version",
+          "action": "./launch.sh",
+          "params": "restore",
+          "exitmenu": true
+        },
+        {
+          "name": "Show installer status",
+          "action": "./launch.sh",
+          "params": "status",
+          "exitmenu": false
+        }
+      ]
+    }
+  ]
+}
